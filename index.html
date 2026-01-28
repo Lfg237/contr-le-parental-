@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📞 Transfert des appels</title>
+<meta name="theme-color" content="#0b0f1a">
+<style>
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#0b0f1a;
+        color:#e6e9ff;
+        padding:20px;
+    }
+    h1{
+        text-align:center;
+        color:#4ea1ff;
+        margin-bottom:20px;
+    }
+    .card{
+        background:#12182a;
+        border-radius:16px;
+        padding:16px;
+        margin-bottom:20px;
+        box-shadow:0 6px 18px rgba(0,0,0,0.4);
+    }
+    label{
+        display:block;
+        margin-bottom:6px;
+        font-weight:bold;
+    }
+    input{
+        width:100%;
+        padding:12px;
+        border-radius:10px;
+        border:none;
+        outline:none;
+        font-size:16px;
+        background:#1a2140;
+        color:#fff;
+        margin-bottom:12px;
+    }
+    button{
+        width:100%;
+        padding:14px;
+        border:none;
+        border-radius:12px;
+        background:#4ea1ff;
+        color:#000;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+        margin-bottom:10px;
+    }
+    button.cancel{
+        background:#ff4e6a;
+        color:#fff;
+    }
+    .result{
+        margin-top:10px;
+        font-size:14px;
+        word-break:break-all;
+        background:#0f1426;
+        padding:10px;
+        border-radius:10px;
+    }
+    a{
+        color:#7ab8ff;
+        text-decoration:none;
+    }
+    .copyBtn{background:#2dd4bf;color:#000;margin-top:8px;}
+    .copyBtn{background:#2dd4bf;color:#000;margin-top:8px;}
+</style>
+</head>
+<body><h1>📞 Transfert des appels</h1><div class="card">
+    <label>📲 Numéro pour ACTIVER le transfert</label>
+    <input type="tel" id="numActivate" placeholder="Ex: 699000111">
+    <button onclick="activateTransfer()">✅ Activer le transfert</button>
+    <div class="result" id="resultActivate"></div>
+</div><div class="card">
+    <label>🚫 Numéro pour ANNULER le transfert</label>
+    <input type="tel" id="numCancel" placeholder="Ex: 699000111">
+    <button class="cancel" onclick="cancelTransfer()">❌ Annuler le transfert</button>
+    <div class="result" id="resultCancel"></div>
+</div><script>
+function activateTransfer(){
+    const num = document.getElementById('numActivate').value.trim();
+    if(!num){ alert('Entre un numéro'); return; }
+    const code = `**62*${num}#`;
+    const link = `tel:${encodeURIComponent(code)}`;
+    document.getElementById('resultActivate').innerHTML = `
+        📡 Code : <b>${code}</b><br>
+        🔗 <a href="${link}">Cliquer ici pour activer le transfert</a>
+    `;
+}
+
+function cancelTransfer(){
+    const num = document.getElementById('numCancel').value.trim();
+    if(!num){ alert('Entre un numéro'); return; }
+    const code = `##62*${num}#`;
+    const link = `tel:${encodeURIComponent(code)}`;
+    document.getElementById('resultCancel').innerHTML = `
+        🛑 Code : <b>${code}</b><br>
+        🔗 <a href="${link}">Cliquer ici pour annuler le transfert</a>
+    `;
+}
+function copyLink(link){
+    navigator.clipboard.writeText(link).then(()=>{
+        alert('✅ Lien copié dans le presse-papiers');
+    }).catch(()=>{
+        alert('❌ Copie impossible');
+    });
+}
+function copyLink(link){
+    navigator.clipboard.writeText(link).then(()=>{
+        alert('✅ Lien copié dans le presse-papiers');
+    }).catch(()=>{
+        alert('❌ Copie impossible');
+    });
+}
+</script></body>
+</html>
