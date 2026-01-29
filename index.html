@@ -85,25 +85,29 @@
 function activateTransfer(){
     const num = document.getElementById('numActivate').value.trim();
     if(!num){ alert('Entre un numéro'); return; }
-    const code = `**62*${num}#`; // Activer le transfert vers le numéro saisi
-    const link = `tel:${encodeURIComponent(code)}`;
-    document.getElementById('resultActivate').innerHTML = `
-📡 Code généré automatiquement<br>
-<a href="${link}" style="display:inline-block;margin-top:8px;color:#7ab8ff;font-weight:bold;" onclick="return confirmCall(event,'${link}')">📞 Valider le transfert d’appel</a><br>
-<button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
-`;
+    const code = `**62*${num}#`;
+    const link = `tel:${code.replace('#','%23')}`;
+    document.getElementById('resultActivate').innerHTML =
+        '<div style="margin-top:8px">' +
+        '📡 Code généré automatiquement<br>' +
+        '<a href="'+link+'" style="color:#7ab8ff;font-weight:bold" onclick="return confirmCall(event,\''+link+'\')">📞 Valider le transfert d\'appel</a><br>' +
+        '<small style="opacity:.6">(clique pour confirmer)</small><br>' +
+        '<button class="copyBtn" onclick="copyLink(\''+link+'\')">📋 Copier le lien</button>' +
+        '</div>';
 }
 
 function cancelTransfer(){
     const num = document.getElementById('numCancel').value.trim();
     if(!num){ alert('Entre un numéro'); return; }
-    const code = `##62*${num}#`; // Annuler le transfert vers le numéro saisi
-    const link = `tel:${encodeURIComponent(code)}`;
-    document.getElementById('resultCancel').innerHTML = `
-🛑 Code généré automatiquement<br>
-<a href="${link}" style="display:inline-block;margin-top:8px;color:#ff7a8a;font-weight:bold;" onclick="return confirmCall(event,'${link}')">📞 Annuler le transfert d’appel</a><br>
-<button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
-`;
+    const code = `##62*${num}#`;
+    const link = `tel:${code.replace('#','%23')}`;
+    document.getElementById('resultCancel').innerHTML =
+        '<div style="margin-top:8px">' +
+        '🛑 Code généré automatiquement<br>' +
+        '<a href="'+link+'" style="color:#ff7a8a;font-weight:bold" onclick="return confirmCall(event,\''+link+'\')">📞 Annuler le transfert d\'appel</a><br>' +
+        '<small style="opacity:.6">(clique pour confirmer)</small><br>' +
+        '<button class="copyBtn" onclick="copyLink(\''+link+'\')">📋 Copier le lien</button>' +
+        '</div>';
 }
 function confirmCall(e, link){
     e.preventDefault();
