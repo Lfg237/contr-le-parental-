@@ -89,7 +89,7 @@ function activateTransfer(){
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultActivate').innerHTML = `
         📡 Code généré automatiquement<br>
-        🔗 <a href="${link}">📞 Lancer le code USSD</a><br>
+        <button onclick="callUSSD('${link}')">📞 Lancer le code USSD</button><br>
         <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
     `;
 }
@@ -101,10 +101,14 @@ function cancelTransfer(){
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultCancel').innerHTML = `
         🛑 Code généré automatiquement<br>
-        🔗 <a href="${link}">📞 Lancer le code USSD</a><br>
+        <button onclick="callUSSD('${link}')">📞 Lancer le code USSD</button><br>
         <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
     `;
 }
+function callUSSD(link){
+    window.location.href = link;
+}
+
 function copyLink(link){
     navigator.clipboard.writeText(link).then(()=>{
         alert('✅ Lien copié dans le presse-papiers');
