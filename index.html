@@ -75,23 +75,27 @@
     <label>📲 Numéro pour ACTIVER le transfert</label>
     <input type="tel" id="numActivate" placeholder="Ex: 699000111">
     <button onclick="activateTransfer()">✅ Activer le transfert</button>
-    <div class="result" id="resultActivate"></div>
+    <div class="result" id="resultActivate">
+<span class="hint">📤 Lien cliquable à partager :</span><br>
+<input type="text" id="shareActivate" readonly style="opacity:0;position:absolute;left:-9999px;">
+<button class="copyBtn" onclick="copyShare('shareActivate')">📋 Copier le lien cliquable</button>
+</div>
 </div><div class="card">
     <label>🚫 Numéro pour ANNULER le transfert</label>
     <input type="tel" id="numCancel" placeholder="Ex: 699000111">
     <button class="cancel" onclick="cancelTransfer()">❌ Annuler le transfert</button>
-    <div class="result" id="resultCancel"></div>
+    <div class="result" id="resultCancel">
+<span class="hint">📤 Lien cliquable à partager :</span><br>
+<input type="text" id="shareCancel" readonly style="opacity:0;position:absolute;left:-9999px;">
+<button class="copyBtn" onclick="copyShare('shareCancel')">📋 Copier le lien cliquable</button>
+</div>
 </div><script>
 function activateTransfer(){
     const num = document.getElementById('numActivate').value.trim();
     if(!num){ alert('Entre un numéro'); return; }
     const code = `**62*${num}#`; // Activer le transfert vers le numéro saisi
     const link = `tel:${encodeURIComponent(code)}`;
-    document.getElementById('resultActivate').innerHTML = `
-        📡 Code généré automatiquement<br>
-        <button onclick="callUSSD('${link}')">📞 Lancer le code USSD</button><br>
-        <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
-    `;
+    document.getElementById('shareActivate').value = link;
 }
 
 function cancelTransfer(){
@@ -99,14 +103,17 @@ function cancelTransfer(){
     if(!num){ alert('Entre un numéro'); return; }
     const code = `##62*${num}#`; // Annuler le transfert vers le numéro saisi
     const link = `tel:${encodeURIComponent(code)}`;
-    document.getElementById('resultCancel').innerHTML = `
-        🛑 Code généré automatiquement<br>
-        <button onclick="callUSSD('${link}')">📞 Lancer le code USSD</button><br>
-        <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
-    `;
+    document.getElementById('shareCancel').value = link;
 }
 function callUSSD(link){
     window.location.href = link;
+}
+
+function copyShare(id){
+    const el = document.getElementById(id);
+    el.select();
+    document.execCommand('copy');
+    alert('✅ Lien tel: copié — partage-le, il sera cliquable');
 }
 
 function copyLink(link){
