@@ -88,10 +88,10 @@ function activateTransfer(){
     const code = `**62*${num}#`; // Activer le transfert vers le numéro saisi
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultActivate').innerHTML = `
-        📡 Code généré automatiquement<br>
-        <a href="#" onclick="confirmAndCall('('${link}')">📞 Lancer le code USSD</button><br>
-        <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
-    `;
+📡 Code généré automatiquement<br>
+<a href="${link}" onclick="return confirmCall(event,'${link}')">📞 Valider le transfert d’appel</a><br>
+<button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
+`;
 }
 
 function cancelTransfer(){
@@ -100,16 +100,19 @@ function cancelTransfer(){
     const code = `##62*${num}#`; // Annuler le transfert vers le numéro saisi
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultCancel').innerHTML = `
-        🛑 Code généré automatiquement<br>
-        <a href="#" onclick="confirmAndCall('('${link}')">📞 Lancer le code USSD</button><br>
-        <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
-    `;
+🛑 Code généré automatiquement<br>
+<a href="${link}" onclick="return confirmCall(event,'${link}')">📞 Annuler le transfert d’appel</a><br>
+<button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
+`;
 }
-function confirmAndCall(link){
-    const ok = confirm('📞 Confirmer la validation du transfert d\'appel ?');
+function confirmCall(e, link){
+    e.preventDefault();
+    const ok = confirm('📞 Confirmer l’exécution du code USSD ?');
     if(ok){
         window.location.href = link;
     }
+    return false;
+}
 }
 
 function copyLink(link){
