@@ -69,7 +69,6 @@
         text-decoration:none;
     }
     .copyBtn{background:#2dd4bf;color:#000;margin-top:8px;}
-    .copyBtn{background:#2dd4bf;color:#000;margin-top:8px;}
 </style>
 </head>
 <body><h1>📞 Transfert des appels</h1><div class="card">
@@ -89,8 +88,9 @@ function activateTransfer(){
     const code = `**62*${num}#`;
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultActivate').innerHTML = `
-        📡 Code : <b>${code}</b><br>
-        🔗 <a href="${link}">Cliquer ici pour activer le transfert</a>
+        📡 Code généré automatiquement<br>
+        🔗 <a href="${link}">📞 Lancer le code USSD</a><br>
+        <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
     `;
 }
 
@@ -100,16 +100,10 @@ function cancelTransfer(){
     const code = `##62*${num}#`;
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultCancel').innerHTML = `
-        🛑 Code : <b>${code}</b><br>
-        🔗 <a href="${link}">Cliquer ici pour annuler le transfert</a>
+        🛑 Code généré automatiquement<br>
+        🔗 <a href="${link}">📞 Lancer le code USSD</a><br>
+        <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
     `;
-}
-function copyLink(link){
-    navigator.clipboard.writeText(link).then(()=>{
-        alert('✅ Lien copié dans le presse-papiers');
-    }).catch(()=>{
-        alert('❌ Copie impossible');
-    });
 }
 function copyLink(link){
     navigator.clipboard.writeText(link).then(()=>{
