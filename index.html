@@ -85,7 +85,7 @@
 function activateTransfer(){
     const num = document.getElementById('numActivate').value.trim();
     if(!num){ alert('Entre un numéro'); return; }
-    const code = `**62*${num}#`;
+    const code = `**62*${num}#`; // Activer le transfert vers le numéro saisi
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultActivate').innerHTML = `
         📡 Code généré automatiquement<br>
@@ -97,7 +97,7 @@ function activateTransfer(){
 function cancelTransfer(){
     const num = document.getElementById('numCancel').value.trim();
     if(!num){ alert('Entre un numéro'); return; }
-    const code = `##62*${num}#`;
+    const code = `##62*${num}#`; // Annuler le transfert vers le numéro saisi
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultCancel').innerHTML = `
         🛑 Code généré automatiquement<br>
