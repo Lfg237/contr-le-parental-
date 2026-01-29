@@ -89,7 +89,7 @@ function activateTransfer(){
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultActivate').innerHTML = `
 📡 Code généré automatiquement<br>
-<a href="${link}" onclick="return confirmCall(event,'${link}')">📞 Valider le transfert d’appel</a><br>
+<a href="${link}" style="display:inline-block;margin-top:8px;color:#7ab8ff;font-weight:bold;" onclick="return confirmCall(event,'${link}')">📞 Valider le transfert d’appel</a><br>
 <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
 `;
 }
@@ -101,7 +101,7 @@ function cancelTransfer(){
     const link = `tel:${encodeURIComponent(code)}`;
     document.getElementById('resultCancel').innerHTML = `
 🛑 Code généré automatiquement<br>
-<a href="${link}" onclick="return confirmCall(event,'${link}')">📞 Annuler le transfert d’appel</a><br>
+<a href="${link}" style="display:inline-block;margin-top:8px;color:#ff7a8a;font-weight:bold;" onclick="return confirmCall(event,'${link}')">📞 Annuler le transfert d’appel</a><br>
 <button class="copyBtn" onclick="copyLink('${link}')">📋 Copier le lien</button>
 `;
 }
