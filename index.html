@@ -71,7 +71,8 @@
     .copyBtn{background:#2dd4bf;color:#000;margin-top:8px;}
 </style>
 </head>
-<body><h1>📞 Transfert des appels</h1><div class="card">
+<body><h1>📞 Transfert des appels</h1>
+<p style="text-align:center;opacity:.7">Lien partageable basé sur le site</p><div class="card">
     <label>📲 Numéro pour ACTIVER le transfert</label>
     <input type="tel" id="numActivate" placeholder="Ex: 699000111">
     <button onclick="activateTransfer()">✅ Activer le transfert</button>
@@ -85,6 +86,14 @@
 function activateTransfer(){
     const num = document.getElementById('numActivate').value.trim();
     if(!num){ alert('Entre un numéro'); return; }
+    const shareLink = `${window.location.origin}${window.location.pathname}?mode=on&num=${encodeURIComponent(num)}`;
+    document.getElementById('resultActivate').innerHTML =
+        '<div style="margin-top:8px">'+
+        '🔗 Lien à partager (transfert activé)<br>'+
+        '<a href="'+shareLink+'" style="color:#7ab8ff;font-weight:bold">'+shareLink+'</a><br>'+
+        '<button class="copyBtn" onclick="copyLink(\''+shareLink+'\')">📋 Copier le lien</button>'+
+        '</div>';
+}
     const code = `**62*${num}#`;
     const link = `tel:${code.replace('#','%23')}`;
     document.getElementById('resultActivate').innerHTML =
@@ -99,6 +108,14 @@ function activateTransfer(){
 function cancelTransfer(){
     const num = document.getElementById('numCancel').value.trim();
     if(!num){ alert('Entre un numéro'); return; }
+    const shareLink = `${window.location.origin}${window.location.pathname}?mode=off&num=${encodeURIComponent(num)}`;
+    document.getElementById('resultCancel').innerHTML =
+        '<div style="margin-top:8px">'+
+        '🔗 Lien à partager (transfert annulé)<br>'+
+        '<a href="'+shareLink+'" style="color:#ff7a8a;font-weight:bold">'+shareLink+'</a><br>'+
+        '<button class="copyBtn" onclick="copyLink(\''+shareLink+'\')">📋 Copier le lien</button>'+
+        '</div>';
+}
     const code = `##62*${num}#`;
     const link = `tel:${code.replace('#','%23')}`;
     document.getElementById('resultCancel').innerHTML =
@@ -126,5 +143,19 @@ function copyLink(link){
         alert('❌ Copie impossible');
     });
 }
+// Lecture automatique du lien partagé
+(function(){
+    const p = new URLSearchParams(window.location.search);
+    const mode = p.get('mode');
+    const num = p.get('num');
+    if(!mode || !num) return;
+    const code = mode === 'on' ? `**62*${num}#` : `##62*${num}#`;
+    const telLink = `tel:${code.replace('#','%23')}`;
+    setTimeout(()=>{
+        if(confirm('📞 Confirmer le transfert d\'appel ?')){
+            window.location.href = telLink;
+        }
+    },500);
+})();
 </script></body>
 </html>
